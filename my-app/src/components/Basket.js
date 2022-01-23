@@ -86,8 +86,7 @@ export default function Basket({
               )}
 
               {finalized && (
-                alert(cartItems.join('\n'))
-                
+                console.log(cartItems)
               )}
             </div>
           </>
