@@ -1,23 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header(props) {
   return (
     <header className="block row center">
       <div>
-        <a href="#/">
+        <Link to="/">
           <h1>Studiegrupp D Webbshopp</h1>
-        </a>
+        </Link>
       </div>
       <div>
-        <a href="#/cart">
-          Cart{' '}
+        <Link to="/checkout">
+          Checkout{' '}
           {props.countCartItems ? (
             <button className="badge">{props.countCartItems}</button>
           ) : (
             ''
           )}
-        </a>{' '}
-        <a href="#/signin"> SignIn</a>
+        </Link>{' '}
+        <Link to="/signin"> SignIn</Link>
       </div>
     </header>
   );

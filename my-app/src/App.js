@@ -1,8 +1,20 @@
-import Header from './components/Header';
-import Main from './components/Main';
-import Basket from './components/Basket';
-import data from './data';
-import { useState } from 'react';
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Basket from "./components/Basket";
+import data from "./data";
+import { useState, Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Checkout from "./components/Checkout";
+
+function Home({onAdd,onRemove,cartItems,products}) {
+  return (
+    <Fragment>
+      <Main products={products} onAdd={onAdd}></Main>
+      <Basket cartItems={cartItems} onAdd={onAdd} onRemove={onRemove}></Basket>
+    </Fragment>
+  );
+}
+
 function App() {
   const { products } = data;
   const [cartItems, setCartItems] = useState([]);
@@ -32,15 +44,25 @@ function App() {
   };
   return (
     <div className="App">
-      <Header countCartItems={cartItems.length}></Header>
-      <div className="row">
-        <Main products={products} onAdd={onAdd}></Main>
-        <Basket
-          cartItems={cartItems}
-          onAdd={onAdd}
-          onRemove={onRemove}
-        ></Basket>
-      </div>
+      <Router>
+        <Header countCartItems={cartItems.length}></Header>
+        <div className="row">
+          <Routes>
+            <Route path="/checkout" element={<Checkout 
+              products={products}
+              cartItems={cartItems}
+              complete={true}
+            />} 
+            />
+            <Route path="/" element={<Home 
+              onAdd={onAdd}
+              onRemove={onRemove}
+              products={products}
+              cartItems={cartItems}
+            />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }
